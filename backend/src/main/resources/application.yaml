@@ -16,17 +16,6 @@ spring:
       host: localhost
       port: 6379
 
-keycloak:
-  policy-enforcer-config:
-    auth-server-url: http://localhost:7080
-    realm: sb-kc-realm
-    resource: sb-kc-backend-client
-    credentials:
-      secret: ${SB_KC_BACKEND_CLIENT_SECRET}
-    enforcement-mode: ENFORCING
-    http-method-as-scope: true
-    lazy-load-paths: true
-
 #Custom application properties
 application:
   keycloak:
