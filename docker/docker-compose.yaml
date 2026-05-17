@@ -1,0 +1,26 @@
+services:
+  sb-kc-keycloak:
+    image: quay.io/keycloak/keycloak:26.6.1
+    container_name: sb-kc-keycloak
+    ports:
+      - "7080:8080"
+    volumes:
+      - keycloak-bkp:/opt/keycloak/data
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: "admin"
+      KC_BOOTSTRAP_ADMIN_PASSWORD: "admin"
+    command: "start-dev --import-realm"
+
+  sb-kc-redis:
+    image: redis:7
+    container_name: sb-kc-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  keycloak-bkp:

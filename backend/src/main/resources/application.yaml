@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-keycloak-fine-grained
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:7080/realms/sb-kc-realm
+  # Redis configuration
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+keycloak:
+  policy-enforcer-config:
+    auth-server-url: http://localhost:7080
+    realm: sb-kc-realm
+    resource: sb-kc-backend-client
+    credentials:
+      secret: ${SB_KC_BACKEND_CLIENT_SECRET}
+    enforcement-mode: ENFORCING
+    http-method-as-scope: true
+    lazy-load-paths: true
+
+#Custom application properties
+application:
+  keycloak:
+    realm: sb-kc-realm
+    server-url: http://localhost:7080
+    client-id: sb-kc-backend-client
+    client-secret: ${SB_KC_BACKEND_CLIENT_SECRET}
